@@ -44,6 +44,9 @@
 <script setup>
 import {ref} from "vue";
 import router from "@/router";
+import {loginUser} from "@/services/modules/auth.module";
+import {toastError, toastSuccess} from "@/services/toast.service";
+import {saveToken} from "@/services/modules/jwt.service";
 
 const isLoading = ref(false);
 
@@ -58,10 +61,25 @@ async function login() {
   }
 
   isLoading.value = true;
-  setTimeout(() => {
-    router.push('/');
-  }, 2000);
-
+  const model = {
+    email: email.value,
+    password: password.value
+  }
+  const response = await loginUser(model);
+  if (response.status === 200) {
+    toastSuccess("Başarıyla giriş yapıldı.");
+    saveToken(response.data.token);
+    await router.push('/');
+  }else {
+    if (response.data.error) {
+      toastError(response.data.error.message);
+    }else {
+      response.data.details.forEach(e => {
+        toastError(e.message);
+      });
+    }
+  }
+  isLoading.value = false;
 }
 
 </script>
