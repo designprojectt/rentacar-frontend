@@ -4,7 +4,7 @@
       rounded="rounded"
       width="400"
       class="mx-auto">
-    <v-form class="pa-8">
+    <v-form ref="loginForm" class="pa-8">
       <h2>Kullanıcı Girişi</h2>
       <v-text-field
           v-model="email"
@@ -25,7 +25,8 @@
           hide-details="auto"
           type="password"
           :rules="[value => !!value || 'Parola Boş Bırakılamaz']"
-          prepend-inner-icon="mdi mdi-lock">
+          prepend-inner-icon="mdi mdi-lock"
+          @keydown.enter="login">
       </v-text-field>
       <v-btn
           :loading="isLoading"
@@ -46,10 +47,16 @@ import router from "@/router";
 
 const isLoading = ref(false);
 
+const loginForm = ref(null);
 const email = ref(null);
 const password = ref(null);
 
-function login() {
+async function login() {
+  const {valid} = await loginForm.value.validate();
+  if (!valid) {
+    return;
+  }
+
   isLoading.value = true;
   setTimeout(() => {
     router.push('/');
