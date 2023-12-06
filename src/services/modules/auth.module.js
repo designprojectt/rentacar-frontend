@@ -21,3 +21,13 @@ export const loginUser = async (model) => {
             return error.response;
         });
 }
+
+export const verifyMail = async (model) => {
+    return await instance.patch(`${route}/verify-email`, null,{params: model})
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            return error.response;
+        });
+}

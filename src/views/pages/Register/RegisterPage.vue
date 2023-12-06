@@ -74,6 +74,7 @@ import {ref} from "vue";
 import {registerUser} from "@/services/modules/auth.module";
 import {toastError, toastSuccess} from "@/services/toast.service";
 import router from "@/router";
+import errorMessages from "@/core/errorMessages";
 
 const isLoading = ref(false);
 
@@ -105,11 +106,13 @@ async function register() {
     password: password.value
   }
   const response = await registerUser(model);
-  if (response.status === 201) {
+  if (response && response.status === 201) {
     toastSuccess("Başarıyla kayıt olundu.");
     await router.push('/');
-  }else {
+  }else if (response?.data) {
     toastError(response.data.error.message);
+  }else {
+    toastError(errorMessages.serverError);
   }
   isLoading.value = false;
 }
