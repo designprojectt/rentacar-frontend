@@ -37,6 +37,11 @@
           @click="login">
         Giriş Yap
       </v-btn>
+      <div class="d-flex justify-center mt-4">
+        <v-btn variant="text" @click="() => router.push('/register')">
+          Hesabınız Yok Mu ? Kayıt Olun.
+        </v-btn>
+      </div>
     </v-form>
   </v-sheet>
 </template>
@@ -47,6 +52,7 @@ import router from "@/router";
 import {loginUser} from "@/services/modules/auth.module";
 import {toastError, toastSuccess} from "@/services/toast.service";
 import {saveToken} from "@/services/modules/jwt.service";
+import errorMessages from "@/core/errorMessages";
 
 const isLoading = ref(false);
 
@@ -66,18 +72,20 @@ async function login() {
     password: password.value
   }
   const response = await loginUser(model);
-  if (response.status === 200) {
+  if (response && response.status === 200) {
     toastSuccess("Başarıyla giriş yapıldı.");
     saveToken(response.data.token);
     await router.push('/');
-  }else {
-    if (response.data.error) {
+  }else if (response?.data) {
+    if (response?.data?.error) {
       toastError(response.data.error.message);
     }else {
       response.data.details.forEach(e => {
         toastError(e.message);
       });
     }
+  }else {
+    toastError(errorMessages.serverError);
   }
   isLoading.value = false;
 }

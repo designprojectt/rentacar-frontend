@@ -1,5 +1,5 @@
 <template>
-  <h1>Merhaba, {{userProfile.user.firstName}} {{userProfile.user.lastName}}</h1>
+  <h1 v-if="userProfile">Merhaba, {{userProfile.user.firstName}} {{userProfile.user.lastName}}</h1>
 </template>
 
 <script setup>

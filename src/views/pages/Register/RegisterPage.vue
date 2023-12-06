@@ -60,6 +60,11 @@
           @click="register">
         Kayıt Ol
       </v-btn>
+      <div class="d-flex justify-center mt-4">
+        <v-btn variant="text" @click="() => router.push('/login')">
+          Zaten Hesabınız Var Mı ? Giriş Yapın.
+        </v-btn>
+      </div>
     </v-form>
   </v-sheet>
 </template>
