@@ -19,7 +19,7 @@ import GrillePain, {GpPosition} from "vue-grille-pain";
 
 const grillePainOptions = {
     position: GpPosition.BOTTOM_RIGHT,
-    fadeAfter: 1000,
+    fadeAfter: 3000,
 };
 
 const vuetify = createVuetify({
