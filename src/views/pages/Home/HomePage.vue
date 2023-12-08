@@ -1,10 +1,28 @@
 <template>
-  <v-row>
-    <v-col v-for="vehicle in vehicles" class="v-col-12 v-col-sm-6 v-col-md-4">
-      <rental-card :vehicle="vehicle">
-      </rental-card>
-    </v-col>
-  </v-row>
+  <v-layout>
+    <v-app-bar>
+      <template v-slot:prepend>
+        Rent a Car
+      </template>
+
+      <template v-slot:append>
+        <v-btn variant="text">
+          ARAÇ EKLE
+        </v-btn>
+        <v-btn variant="text">
+          PROFİL
+        </v-btn>
+      </template>
+    </v-app-bar>
+    <v-main>
+      <v-row>
+        <v-col v-for="vehicle in vehicles" class="v-col-12 v-col-sm-6 v-col-md-4">
+          <rental-card :vehicle="vehicle">
+          </rental-card>
+        </v-col>
+      </v-row>
+    </v-main>
+  </v-layout>
 </template>
 
 <script setup>
@@ -43,5 +61,4 @@ fetchVehicles();
 </script>
 
 <style scoped>
-
 </style>
