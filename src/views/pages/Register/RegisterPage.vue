@@ -1,72 +1,74 @@
 <template>
-  <v-sheet
-      elevation="12"
-      rounded="rounded"
-      width="400"
-      class="mx-auto">
-    <v-form ref="registerForm" class="pa-8">
-      <h2>Kayıt Ol</h2>
-      <v-text-field
-          v-model="firstName"
-          class="mt-6"
-          label="Ad"
-          density="comfortable"
-          :clearable="true"
-          hide-details="auto"
-          :rules="[rules.firstName]"
-          prepend-inner-icon="mdi mdi-account"
-          @keydown.enter="register">
-      </v-text-field>
-      <v-text-field
-          v-model="lastName"
-          class="mt-4"
-          label="Soyad"
-          density="comfortable"
-          :clearable="true"
-          hide-details="auto"
-          :rules="[rules.lastName]"
-          prepend-inner-icon="mdi mdi-account"
-          @keydown.enter="register">
-      </v-text-field>
-      <v-text-field
-          v-model="email"
-          class="mt-4"
-          label="E-Posta Adresi"
-          density="comfortable"
-          :clearable="true"
-          hide-details="auto"
-          :rules="[rules.email]"
-          prepend-inner-icon="mdi mdi-account"
-          @keydown.enter="register">
-      </v-text-field>
-      <v-text-field
-          v-model="password"
-          class="mt-4"
-          label="Parola"
-          density="comfortable"
-          :clearable="true"
-          hide-details="auto"
-          type="password"
-          :rules="[rules.password]"
-          prepend-inner-icon="mdi mdi-lock"
-          @keydown.enter="register">
-      </v-text-field>
-      <v-btn
-          :loading="isLoading"
-          class="mt-8"
-          color="primary"
-          :block="true"
-          size="large"
-          @click="register">
-        Kayıt Ol
-      </v-btn>
-      <div class="d-flex justify-center mt-4">
-        <v-btn variant="text" @click="() => router.push('/login')">
-          Zaten Hesabınız Var Mı ? Giriş Yapın.
+  <div class="register-form">
+    <v-sheet
+        elevation="12"
+        rounded="rounded"
+        width="400"
+        class="mx-auto my-auto">
+      <v-form ref="registerForm" class="pa-8">
+        <h2>Kayıt Ol</h2>
+        <v-text-field
+            v-model="firstName"
+            class="mt-6"
+            label="Ad"
+            density="comfortable"
+            :clearable="true"
+            hide-details="auto"
+            :rules="[rules.firstName]"
+            prepend-inner-icon="mdi mdi-account"
+            @keydown.enter="register">
+        </v-text-field>
+        <v-text-field
+            v-model="lastName"
+            class="mt-4"
+            label="Soyad"
+            density="comfortable"
+            :clearable="true"
+            hide-details="auto"
+            :rules="[rules.lastName]"
+            prepend-inner-icon="mdi mdi-account"
+            @keydown.enter="register">
+        </v-text-field>
+        <v-text-field
+            v-model="email"
+            class="mt-4"
+            label="E-Posta Adresi"
+            density="comfortable"
+            :clearable="true"
+            hide-details="auto"
+            :rules="[rules.email]"
+            prepend-inner-icon="mdi mdi-email"
+            @keydown.enter="register">
+        </v-text-field>
+        <v-text-field
+            v-model="password"
+            class="mt-4"
+            label="Parola"
+            density="comfortable"
+            :clearable="true"
+            hide-details="auto"
+            type="password"
+            :rules="[rules.password]"
+            prepend-inner-icon="mdi mdi-lock"
+            @keydown.enter="register">
+        </v-text-field>
+        <v-btn
+            :loading="isLoading"
+            class="mt-8"
+            color="primary"
+            :block="true"
+            size="large"
+            @click="register">
+          Kayıt Ol
         </v-btn>
-      </div>
-    </v-form>
-  </v-sheet>
+        <div class="d-flex justify-center mt-4">
+          <v-btn variant="text" @click="() => router.push('/login')">
+            Zaten Hesabınız Var Mı ? Giriş Yapın.
+          </v-btn>
+        </div>
+      </v-form>
+    </v-sheet>
+  </div>
 </template>
 
 <script setup>
@@ -119,6 +121,13 @@ async function register() {
 
 </script>
 
-<style scoped>
+<style>
+#app {
+  padding: 0 !important;
+}
 
+.register-form {
+  height: 100vh;
+  display: flex;
+}
 </style>
