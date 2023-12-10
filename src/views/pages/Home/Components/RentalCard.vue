@@ -2,8 +2,7 @@
   <v-card>
     <!-- Car Image -->
     <v-img
-        src="https://www.vocaleurope.eu/wp-content/uploads/no-image.jpg"
-        height="200px"
+        :src="vehicle.VehiclePhotos.length > 0 ? vehicle.VehiclePhotos[0].Photo.url : placeholderImage"
         cover
     ></v-img>
     <!-- Car Brand - Car Model -->
@@ -57,6 +56,7 @@ defineProps({
   vehicle: Object,
 })
 
+const placeholderImage = ref("https://www.vocaleurope.eu/wp-content/uploads/no-image.jpg");
 const isRentModalShown = ref(false);
 
 function rentVehicle(vehicle) {

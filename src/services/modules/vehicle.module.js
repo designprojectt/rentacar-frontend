@@ -11,3 +11,13 @@ export const getAllVehicles = async () => {
             return error.response;
         });
 }
+
+export const createVehicle = async (model) => {
+    return await instance.post(`${route}`, model)
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            return error.response;
+        });
+}

@@ -74,15 +74,32 @@
                   :no-resize="true"
               ></v-textarea>
             </v-col>
+            <v-col class="v-col-12">
+              <v-radio-group
+                  v-model="modalItem.isAutomatic"
+                  :inline="true"
+                  hide-details>
+                <v-radio
+                    label="Otomatik"
+                    :true-value="true"
+                    :false-value="false"
+                ></v-radio>
+                <v-radio
+                    label="Manuel"
+                    :true-value="false"
+                    :false-value="true"
+                ></v-radio>
+              </v-radio-group>
+            </v-col>
           </v-row>
         </v-card-text>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-btn size="small" variant="elevated" color="success" class="mr-1" @click="createClicked">
+          <v-btn :disabled="isLoading" size="small" variant="elevated" color="success" class="mr-1" @click="createClicked">
             <v-icon class="mr-1">mdi-playlist-plus</v-icon>
             Oluştur
           </v-btn>
-          <v-btn size="small" variant="elevated" color="error" @click="$emit('CloseModalClicked')">
+          <v-btn :disabled="isLoading" size="small" variant="elevated" color="error" @click="$emit('CloseModalClicked')">
             <v-icon size="small" class="mr-1">mdi-cancel</v-icon>
             Kapat
           </v-btn>
@@ -95,12 +112,17 @@
 <script setup>
 import {ref} from "vue";
 import fileToBase64 from "@/core/Helpers/fileHelpers";
+import {createVehicle} from "@/services/modules/vehicle.module";
+import {toastError, toastSuccess} from "@/services/toast.service";
+import errorMessages from "@/core/errorMessages";
 
 const emit = defineEmits();
 
+const isLoading = ref(false);
 const createVehicleForm = ref(null);
-
-const modalItem = ref({});
+const modalItem = ref({
+  isAutomatic: false,
+});
 
 const uploader = ref({
   image1: {
@@ -129,7 +151,7 @@ async function createClicked() {
     return;
   }
 
-  emit('CreateVehicle');
+  await addVehicle();
 }
 
 async function addImage(index) {
@@ -148,6 +170,29 @@ function deleteImage(index) {
   const image = uploader.value[`image${index+1}`];
   image.file = {};
   image.base64String = "";
+}
+
+async function addVehicle() {
+  const formData = new FormData();
+  Object.entries(modalItem.value).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+  // Append photo files.
+  Object.keys(uploader.value).forEach(x => {
+    if (uploader.value[x].file !== "") {
+      formData.append("photos", uploader.value[x].file);
+    }
+  });
+
+  isLoading.value = true;
+  const response = await createVehicle(formData);
+  if (response && response.status === 201) {
+    toastSuccess("İlan başarıyla oluşturuldu.");
+    emit('CloseModalClicked');
+  }else {
+    toastError(response.data?.error?.message ?? errorMessages.createVehicleError);
+  }
+  isLoading.value = false;
 }
 
 </script>
