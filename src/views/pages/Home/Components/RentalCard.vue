@@ -3,6 +3,7 @@
     <!-- Car Image -->
     <v-img
         :src="vehicle.VehiclePhotos.length > 0 ? vehicle.VehiclePhotos[0].Photo.url : placeholderImage"
+        height="300px"
         cover
     ></v-img>
     <!-- Car Brand - Car Model -->
@@ -24,7 +25,7 @@
     <!-- Actions -->
     <v-card-actions>
       <v-btn
-          :disabled="profile.id === vehicle.userId"
+          :disabled="profile?.id === vehicle.userId"
           color="primary"
           variant="text" @click="() => {
             isRentModalShown = true;

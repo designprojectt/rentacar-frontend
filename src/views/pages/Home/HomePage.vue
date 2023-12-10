@@ -1,23 +1,6 @@
 <template>
   <v-layout>
-    <v-app-bar>
-      <template v-slot:prepend>
-        Rent a Car
-      </template>
-
-      <template v-slot:append>
-        <v-btn
-            variant="text"
-            @click="() => {
-              isCreateVehicleModalShown = true;
-            }">
-          ARAÇ EKLE
-        </v-btn>
-        <v-btn variant="text">
-          PROFİL
-        </v-btn>
-      </template>
-    </v-app-bar>
+    <app-header :id="1"></app-header>
     <v-main>
       <v-row>
         <v-col v-for="vehicle in vehicles" class="v-col-12 v-col-sm-6 v-col-md-4">
@@ -27,38 +10,18 @@
       </v-row>
     </v-main>
   </v-layout>
-
-  <create-vehicle-modal
-      v-if="isCreateVehicleModalShown"
-      v-model="isCreateVehicleModalShown"
-      @CloseModalClicked="() => {
-        isCreateVehicleModalShown = false;
-      }"
-  ></create-vehicle-modal>
 </template>
 
 <script setup>
-import {getToken, parseJwt} from "@/services/modules/jwt.service";
-import router from "@/router";
 import {ref} from "vue";
 import RentalCard from "@/views/pages/Home/Components/RentalCard.vue";
 import {getAllVehicles} from "@/services/modules/vehicle.module";
 import {toastError} from "@/services/toast.service";
-import CreateVehicleModal from "@/views/pages/Home/Components/CreateVehicleModal.vue";
+import AppHeader from "@/core/Components/AppHeader.vue";
 
 const isLoading = ref(false);
-const userProfile = ref(null);
-
-const isCreateVehicleModalShown = ref(false);
 
 const vehicles = ref([]);
-
-const token = getToken();
-if (!token) {
-  router.push('/login');
-}else {
-  userProfile.value = parseJwt(token);
-}
 
 // Fetch vehicles
 async function fetchVehicles() {

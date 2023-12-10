@@ -19,3 +19,7 @@ export const parseJwt = (token) => {
 export const userProfile = () => {
     return getToken() !== null ? parseJwt(getToken()).user: null;
 }
+
+export const logoutUser = () => {
+    localStorage.removeItem("token");
+}
