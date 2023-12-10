@@ -6,7 +6,11 @@
       </template>
 
       <template v-slot:append>
-        <v-btn variant="text">
+        <v-btn
+            variant="text"
+            @click="() => {
+              isCreateVehicleModalShown = true;
+            }">
           ARAÇ EKLE
         </v-btn>
         <v-btn variant="text">
@@ -23,6 +27,14 @@
       </v-row>
     </v-main>
   </v-layout>
+
+  <create-vehicle-modal
+      v-if="isCreateVehicleModalShown"
+      v-model="isCreateVehicleModalShown"
+      @CloseModalClicked="() => {
+        isCreateVehicleModalShown = false;
+      }"
+  ></create-vehicle-modal>
 </template>
 
 <script setup>
@@ -32,9 +44,12 @@ import {ref} from "vue";
 import RentalCard from "@/views/pages/Home/Components/RentalCard.vue";
 import {getAllVehicles} from "@/services/modules/vehicle.module";
 import {toastError} from "@/services/toast.service";
+import CreateVehicleModal from "@/views/pages/Home/Components/CreateVehicleModal.vue";
 
 const isLoading = ref(false);
 const userProfile = ref(null);
+
+const isCreateVehicleModalShown = ref(false);
 
 const vehicles = ref([]);
 
