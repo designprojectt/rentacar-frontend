@@ -15,11 +15,11 @@
       {{vehicle.description}}
       <div>
         <v-icon size="small">mdi-cog</v-icon>
-        Vites: {{vehicle.isAutomatic ? 'Otomatik' : 'Manuel'}}
+        Transmission: {{vehicle.isAutomatic ? 'Automatic' : 'Manual'}}
       </div>
       <div>
         <v-icon size="small">mdi-calendar</v-icon>
-        İlan Tarihi: {{new Date(vehicle.createdAt).toLocaleDateString('tr')}}
+        Created At: {{new Date(vehicle.createdAt).toLocaleDateString('tr')}}
       </div>
     </v-card-subtitle>
     <!-- Actions -->

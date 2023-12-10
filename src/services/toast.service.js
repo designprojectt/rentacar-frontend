@@ -4,7 +4,7 @@ const { toast } = useGrillePain();
 
 export const toastSuccess = (message) => {
     toast({
-        title: "Başarılı",
+        title: "Success",
         message: message,
         type: GpToastType.SUCCESS,
     });
@@ -12,7 +12,7 @@ export const toastSuccess = (message) => {
 
 export const toastError = (message) => {
     toast({
-        title: "Hata",
+        title: "Error",
         message: message,
         type: GpToastType.ERROR,
     });

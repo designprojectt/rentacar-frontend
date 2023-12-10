@@ -1,7 +1,10 @@
 <template>
-  <v-layout>
+  <v-layout style="height: 100vh;">
     <app-header :id="2"></app-header>
-    <v-main>
+    <v-main class="h-100">
+      <div class="w-100 h-100 d-flex justify-center align-center">
+        You don't have any ads yet. You can create one using the '+' icon down below.
+      </div>
       <v-fab-transition>
         <v-btn
             class="position-absolute"

@@ -6,11 +6,11 @@
         width="400"
         class="mx-auto my-auto">
       <v-form ref="registerForm" class="pa-8">
-        <h2>Kayıt Ol</h2>
+        <h2>Register</h2>
         <v-text-field
             v-model="firstName"
             class="mt-6"
-            label="Ad"
+            label="Name"
             density="comfortable"
             :clearable="true"
             hide-details="auto"
@@ -21,7 +21,7 @@
         <v-text-field
             v-model="lastName"
             class="mt-4"
-            label="Soyad"
+            label="Last Name"
             density="comfortable"
             :clearable="true"
             hide-details="auto"
@@ -32,7 +32,7 @@
         <v-text-field
             v-model="email"
             class="mt-4"
-            label="E-Posta Adresi"
+            label="E-Mail Address"
             density="comfortable"
             :clearable="true"
             hide-details="auto"
@@ -43,7 +43,7 @@
         <v-text-field
             v-model="password"
             class="mt-4"
-            label="Parola"
+            label="Password"
             density="comfortable"
             :clearable="true"
             hide-details="auto"
@@ -59,11 +59,11 @@
             :block="true"
             size="large"
             @click="register">
-          Kayıt Ol
+          REGISTER
         </v-btn>
         <div class="d-flex justify-center mt-4">
           <v-btn variant="text" @click="() => router.push('/login')">
-            Zaten Hesabınız Var Mı ? Giriş Yapın.
+            Already Have an Account? Login.
           </v-btn>
         </div>
       </v-form>
@@ -88,10 +88,10 @@ const email = ref(null);
 const password = ref(null);
 
 const rules = {
-  firstName: value => (value && value.length >= 3 && value.length < 30 || 'Ad 3-30 karakter arasında olmalıdır.'),
-  lastName: value => (value && value.length >= 3 && value.length < 30 || 'Soyad 3-30 karakter arasında olmalıdır.'),
-  email: value => (value && /^(([a-zA-Z0-9.+*_-]+(\.[a-zA-Z0-9.+*_-]+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value) || 'Geçerli bir email adresi giriniz.'),
-  password: value => (value && /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(value) || 'Parola en az 6 karakter, 1 harf, 1 rakam ve 1 özel karakter içermelidir.')
+  firstName: value => (value && value.length >= 3 && value.length < 30 || 'Name must be 3-30 characters long.'),
+  lastName: value => (value && value.length >= 3 && value.length < 30 || 'Last Name must be 3-30 characters long.'),
+  email: value => (value && /^(([a-zA-Z0-9.+*_-]+(\.[a-zA-Z0-9.+*_-]+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value) || 'Please enter a valid email address.'),
+  password: value => (value && /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/.test(value) || 'Password must at least include 6 characters, 1 letter, 1 number and 1 special character.')
 }
 
 async function register() {

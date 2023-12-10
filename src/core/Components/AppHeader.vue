@@ -9,33 +9,33 @@
           :disabled="id === 1"
           variant="text"
           :to="id !== 1 ? `/` : null">
-        ANA SAYFA
+        RENTAL CARS
       </v-btn>
       <v-btn
           v-if="profile !== null"
           :disabled="id === 2"
           variant="text"
           :to="id !== 2 ? `/my-vehicles` : null">
-        İLANLARIM
+        MY RENTALS
       </v-btn>
       <v-btn
           v-if="profile !== null"
           :disabled="id === 3"
           variant="text"
           :to="id !== 3 ? `/my-rents` : null">
-        KİRALADIĞIM ARAÇLAR
+        MY RENTED CARS
       </v-btn>
       <v-btn
           v-if="profile === null"
           variant="text"
           :to="id !== 4 ? `/login` : null">
-        GİRİŞ YAP
+        LOGIN
       </v-btn>
       <v-btn
           v-if="profile !== null"
           variant="text"
           @click="logout">
-        ÇIKIŞ YAP
+        LOG OUT
       </v-btn>
     </template>
   </v-app-bar>

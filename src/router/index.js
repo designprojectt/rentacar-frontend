@@ -49,7 +49,7 @@ const router = createRouter({
       path: '/my-vehicles',
       name: 'my-vehicles',
       meta: {
-        title: "Rent a Car | My Vehicles",
+        title: "Rent a Car | My Rentals",
         auth: true
       },
       component: () => import('../views/pages/MyVehicles/MyVehicles.vue')
@@ -58,7 +58,7 @@ const router = createRouter({
       path: '/my-rents',
       name: 'my-rents',
       meta: {
-        title: "Rent a Car | My Rents",
+        title: "Rent a Car | My Rented Cars",
         auth: true,
       },
       component: () => import('../views/pages/MyRents/MyRents.vue')
