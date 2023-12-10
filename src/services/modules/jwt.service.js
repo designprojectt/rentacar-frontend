@@ -15,3 +15,7 @@ export const parseJwt = (token) => {
 
     return JSON.parse(jsonPayload);
 }
+
+export const userProfile = () => {
+    return getToken() !== null ? parseJwt(getToken()).user: null;
+}

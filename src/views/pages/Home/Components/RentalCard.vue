@@ -24,6 +24,7 @@
     <!-- Actions -->
     <v-card-actions>
       <v-btn
+          :disabled="profile.id === vehicle.userId"
           color="primary"
           variant="text" @click="() => {
             isRentModalShown = true;
@@ -51,10 +52,13 @@
 <script setup>
 import {ref} from "vue";
 import RentModal from "@/views/pages/Home/Components/RentModal.vue";
+import {userProfile} from "../../../../services/modules/jwt.service";
 
 defineProps({
   vehicle: Object,
 })
+
+const profile = ref(userProfile());
 
 const placeholderImage = ref("https://www.vocaleurope.eu/wp-content/uploads/no-image.jpg");
 const isRentModalShown = ref(false);
