@@ -1,6 +1,7 @@
 const errorMessages = {
-    serverError: "Sunucu ile bağlantı kurulurken bir hata meydana geldi.",
-    createVehicleError: "İlan oluşturulurken bir hata meydana geldi.",
+    serverError: "An error occurred while communicating with server.",
+    createVehicleError: "An error occurred while creating an ad.",
+    rentCarError: "An error occurred while renting the car."
 }
 
 export default errorMessages;
