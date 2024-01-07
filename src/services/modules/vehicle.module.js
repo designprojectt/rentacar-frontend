@@ -12,6 +12,15 @@ export const getAllVehicles = async () => {
         });
 }
 
+export const getMyVehicles = async () => {
+    return await instance.get(`${route}/my`)
+        .then(response => {
+            return response;
+        }).catch((error) => {
+            return error.response;
+        })
+}
+
 export const createVehicle = async (model) => {
     return await instance.post(`${route}`, model)
         .then(response => {
@@ -20,4 +29,13 @@ export const createVehicle = async (model) => {
         .catch(error => {
             return error.response;
         });
+}
+
+export const deleteVehicle = async (id) => {
+    return await instance.delete(`${route}/${id}`, )
+        .then(response => {
+            return response;
+        }).catch((error) => {
+            return error.response;
+        })
 }

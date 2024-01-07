@@ -113,7 +113,7 @@
 import {ref} from "vue";
 import fileToBase64 from "@/core/Helpers/fileHelpers";
 import {createVehicle} from "@/services/modules/vehicle.module";
-import {toastError, toastSuccess} from "@/services/toast.service";
+import {toastError} from "@/services/toast.service";
 import errorMessages from "@/core/errorMessages";
 
 const emit = defineEmits();
@@ -187,8 +187,7 @@ async function addVehicle() {
   isLoading.value = true;
   const response = await createVehicle(formData);
   if (response && response.status === 201) {
-    toastSuccess("İlan başarıyla oluşturuldu.");
-    emit('CloseModalClicked');
+    emit('VehicleCreated');
   }else {
     toastError(response.data?.error?.message ?? errorMessages.createVehicleError);
   }

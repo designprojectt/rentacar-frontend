@@ -24,18 +24,28 @@
     </v-card-subtitle>
     <!-- Actions -->
     <v-card-actions>
+      <strong class="ml-2">
+        {{new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(vehicle.price)}}
+      </strong>
+      <v-spacer></v-spacer>
+      <!-- Rent Button -->
       <v-btn
-          :disabled="profile?.id === vehicle.userId"
+          v-if="profile?.id !== vehicle.userId"
           color="primary"
-          variant="text" @click="() => {
+          variant="text"
+          @click="() => {
             isRentModalShown = true;
           }">
         KİRALA
       </v-btn>
-      <v-spacer></v-spacer>
-      <strong>
-        {{new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(vehicle.price)}}
-      </strong>
+      <!-- Delete Button -->
+      <v-btn
+          v-else
+          color="error"
+          variant="text"
+          @click="deleteVehicleAd">
+        İLANI KALDIR
+      </v-btn>
     </v-card-actions>
   </v-card>
 
@@ -53,9 +63,14 @@
 <script setup>
 import {ref} from "vue";
 import RentModal from "@/views/pages/Home/Components/RentModal.vue";
-import {userProfile} from "../../../../services/modules/jwt.service";
+import {userProfile} from "../../services/modules/jwt.service";
+import {deleteVehicle} from "@/services/modules/vehicle.module";
+import {toastError} from "@/services/toast.service";
+import errorMessages from "@/core/errorMessages";
 
-defineProps({
+const emit = defineEmits();
+
+const props = defineProps({
   vehicle: Object,
 })
 
@@ -66,6 +81,15 @@ const isRentModalShown = ref(false);
 
 function rentVehicle(vehicle) {
   console.log(vehicle);
+}
+
+async function deleteVehicleAd() {
+  const response = await deleteVehicle(props.vehicle.id);
+  if (response && response.status === 200) {
+    emit("VehicleDeleted");
+  }else {
+    toastError(response.data?.error?.message ?? errorMessages.deleteError);
+  }
 }
 </script>
 
