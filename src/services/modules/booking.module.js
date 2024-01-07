@@ -11,3 +11,13 @@ export const rentCar = async (model) => {
             return error.response;
         });
 }
+
+export const getMyRentals = async (model) => {
+    return await instance.get(`${route}/my`)
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            return error.response;
+        });
+}
