@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 
 const instance = axios.create({
     baseURL: "http://localhost:3000/api/",
@@ -12,6 +13,15 @@ instance.interceptors.request.use((config) => {
         config.headers.Authorization = token;
     }
     return config;
+})
+
+instance.interceptors.response.use(response => {
+    return response;
+}, error => {
+    if ([401, 403].includes(error.response.status)) {
+        router.push('/login');
+    }
+    return error;
 })
 
 export default instance;

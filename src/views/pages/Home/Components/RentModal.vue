@@ -88,9 +88,8 @@ async function rentCarClicked() {
   }
 
   const model = {
-    startDate: parseDate(modalItem.value.startDate).toISOString(),
-    endDate: parseDate(modalItem.value.endDate).toISOString(),
-    userId: profile.value.id,
+    startDate: modalItem.value.startDate.split('.').reverse().join('-'),
+    endDate: modalItem.value.endDate.split('.').reverse().join('-'),
     vehicleId: props.vehicle.id,
     totalPrice: props.vehicle.price,
   }

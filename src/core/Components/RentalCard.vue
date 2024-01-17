@@ -33,9 +33,7 @@
           v-if="profile?.id !== vehicle.userId"
           color="primary"
           variant="text"
-          @click="() => {
-            isRentModalShown = true;
-          }">
+          @click="rentVehicleClicked">
         KİRALA
       </v-btn>
       <!-- Delete Button -->
@@ -63,10 +61,11 @@
 <script setup>
 import {ref} from "vue";
 import RentModal from "@/views/pages/Home/Components/RentModal.vue";
-import {userProfile} from "../../services/modules/jwt.service";
 import {deleteVehicle} from "@/services/modules/vehicle.module";
 import {toastError} from "@/services/toast.service";
 import errorMessages from "@/core/errorMessages";
+import router from "@/router";
+import {userProfile} from "@/services/modules/jwt.service";
 
 const emit = defineEmits();
 
@@ -81,6 +80,14 @@ const isRentModalShown = ref(false);
 
 function rentVehicle(vehicle) {
   console.log(vehicle);
+}
+
+function rentVehicleClicked() {
+  if (profile) {
+    isRentModalShown.value = true;
+  }else {
+    router.push('/login');
+  }
 }
 
 async function deleteVehicleAd() {
